@@ -1,3 +1,27 @@
+# Use an official base image
+FROM rhel:latest
+
+# Set the working directory
+WORKDIR /app
+
+# Copy application files
+COPY . .
+
+# Install dependencies (modify based on your app's requirements)
+RUN yum update -y && yum install -y \
+    curl \
+    && yum clean all
+
+# Define the command to run the application
+CMD ["echo", "Hello from Docker container"]
+
+# Expose port 80
+EXPOSE 80
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
