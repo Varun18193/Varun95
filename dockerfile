@@ -7,7 +7,7 @@ RUN yum install -y httpd zip unzip && \
 
 cmd /home/ec2-user
 
-COPY inance.zip /var/www/html/
+COPY /mywebsite /var/www/html/
 
 RUN unzip /var/www/html/inance.zip -d /var/www/html/ && \
     cp -rvf /var/www/html/inance/* /var/www/html/ && \
