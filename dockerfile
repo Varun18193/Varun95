@@ -5,7 +5,7 @@ FROM centos:7
 RUN yum install -y httpd zip unzip && \
     yum clean all
 
-cd /home/ec2-user
+cmd /home/ec2-user
 
 COPY inance.zip /var/www/html/
 
