@@ -7,15 +7,12 @@ RUN yum install -y httpd zip unzip && \
 
 COPY inance.zip /var/www/html/
 
-# Unzip the downloaded file inside /var/www/html
-RUN unzip /var/www/html/neogym.zip -d /var/www/html/ && \
-    cp -rvf /var/www/html/neogym/* /var/www/html/ && \
-    rm -rf /var/www/html/neogym /var/www/html/neogym.zip
+RUN unzip /var/www/html/inance.zip -d /var/www/html/ && \
+    cp -rvf /var/www/html/inance/* /var/www/html/ && \
+    rm -rf /var/www/html/inance /var/www/html/inance.zip
 
-# Expose ports for HTTP and HTTPS
 EXPOSE 80 443
 
-# Command to run Apache HTTP server in the foreground
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 
 
