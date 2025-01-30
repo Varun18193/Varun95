@@ -5,8 +5,7 @@ FROM centos:7
 RUN yum install -y httpd zip unzip && \
     yum clean all
 
-# Download the zip file from the URL and extract it to the HTML directory
-ADD https://www.free-css.com/free-css-templates/page296/neogym /var/www/html/
+COPY inance.zip /var/www/html/
 
 # Unzip the downloaded file inside /var/www/html
 RUN unzip /var/www/html/neogym.zip -d /var/www/html/ && \
