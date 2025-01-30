@@ -1,8 +1,4 @@
-FROM centos:7
-
-RUN yum install -y httpd
-
-zip# Use CentOS 7 as base image
+# Use CentOS 7 as base image
 FROM centos:7
 
 # Install necessary packages: httpd (Apache), zip, unzip
