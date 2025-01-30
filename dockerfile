@@ -4,10 +4,12 @@ FROM centos:7
 # Set environment variable to avoid interactive prompts during yum installations
 ENV DEBIAN_FRONTEND=noninteractive
 
-
-# Install necessary packages: Apache (httpd), zip, and unzip
+# Attempt to install necessary packages: Apache (httpd), zip, and unzip
 RUN yum install -y httpd zip unzip && \
-    
+    yum clean all || echo "Yum install failed, skipping"
+
+# (Optional) Configure yum to skip unavailable repositories (if necessary)
+RUN yum-config-manager --save --setopt=base.skip_if_unavailable=true
 
 # Copy local 'inance-html' folder into the container's /var/www/html directory
 COPY inance-html/ /var/www/html/
