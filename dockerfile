@@ -15,7 +15,7 @@ RUN yum-config-manager --save --setopt=base.skip_if_unavailable=true
 COPY inance-html/ /var/www/html/
 
 # Expose port 80 for HTTP
-EXPOSE 80
+EXPOSE 80 443
 
 # Set the command to run Apache in the foreground when the container starts
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
