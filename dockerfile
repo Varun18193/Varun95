@@ -1,20 +1,18 @@
-# Use CentOS 7 as base image
+# Use CentOS 7 as the base image
 FROM centos:7
 
-# Install necessary packages: httpd (Apache), zip, unzip
+# Set environment variable to avoid interactive prompts during yum installations
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install necessary packages: Apache (httpd), zip, and unzip
 RUN yum install -y httpd zip unzip && \
     yum clean all
 
-# Copy the local inance.zip file into the container's /var/www/html directory
-COPY inance.zip /var/www/html/
-
-# Unzip the downloaded file, copy its contents, and clean up
-RUN unzip /var/www/html/inance.zip -d /var/www/html/ && \
-    cp -rvf /var/www/html/inance/* /var/www/html/ && \
-    rm -rf /var/www/html/inance /var/www/html/inance.zip
+# Copy local 'inance-html' file into the container's /var/www/html directory
+COPY inance-html  /var/www/html/
 
 # Expose port 80 for HTTP
 EXPOSE 80
 
-# Set the command to run Apache (httpd) in the foreground
+# Set the command to run Apache in the foreground when the container starts
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
