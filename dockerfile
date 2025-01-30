@@ -8,7 +8,7 @@ unzip
 
 ADD https://www.free-css.com/assets/files/free-css-templates/download/page296/inance.zip /var/www/html/
 
-cd /var/www/html/
+cmd /var/www/html/
 
 RUN unzip inance.zip
 
