@@ -1,23 +1,23 @@
-# Use CentOS 7 as base image
-FROM centos:7
+# Use Nginx as the base image
+FROM nginx
 
-# Install necessary packages: httpd (Apache), zip, unzip
-RUN yum install -y httpd zip unzip && \
+# Install necessary packages: zip, unzip
+RUN yum install -y zip unzip && \
     yum clean all
 
-# Copy the inance.zip file into the container's /var/www/html directory
-COPY inance.zip /var/www/html/
+# Copy the inance.zip file into the container's /usr/share/nginx/html directory
+COPY inance.zip /usr/share/nginx/html/
 
 # Unzip the downloaded file, copy its contents, and clean up
-RUN unzip /var/www/html/inance.zip -d /var/www/html/ && \
-    cp -rvf /var/www/html/inance/* /var/www/html/ && \
-    rm -rf /var/www/html/inance /var/www/html/inance.zip
+RUN unzip /usr/share/nginx/html/inance.zip -d /usr/share/nginx/html/ && \
+    cp -rvf /usr/share/nginx/html/inance/* /usr/share/nginx/html/ && \
+    rm -rf /usr/share/nginx/html/inance /usr/share/nginx/html/inance.zip
 
 # Expose ports for HTTP and HTTPS
 EXPOSE 80 443
 
-# Set the command to run Apache in the foreground
-CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+# Nginx is already set to run in the foreground by default
+
 
 
 
