@@ -5,9 +5,6 @@ FROM centos:7
 RUN yum install -y httpd zip unzip && \
     yum clean all
 
-# Add the inance.zip file directly into the container's /var/www/html directory
-ADD https://www.free-css.com/assets/files/free-css-templates/download/page296/inance.zip /var/www/html/
-
 # Copy the local inance.zip file into the container's /var/www/html directory
 COPY inance.zip /var/www/html/
 
