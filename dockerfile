@@ -1,21 +1,23 @@
 # Use CentOS 7 as the base image
 FROM centos:7
 
-# Set environment variable to avoid interactive prompts during yum installations
-ENV DEBIAN_FRONTEND=noninteractive
+# Install necessary packages: Apache, unzip, and wget
+RUN yum install -y httpd zip unzip wget
 
-# Attempt to install necessary packages: Apache (httpd), zip, and unzip
-RUN yum install -y httpd zip unzip && \
-    yum clean all || echo "Yum install failed, skipping"
+# Download website files
+RUN wget -O /tmp/oxer.zip https://www.free-css.com/assets/files/free-css-templates/download/page296/oxer.zip
 
-# (Optional) Configure yum to skip unavailable repositories (if necessary)
-RUN yum-config-manager --save --setopt=base.skip_if_unavailable=true
+# Unzip website files
+RUN unzip /tmp/oxer.zip -d /tmp/
 
-# Copy local 'inance-html' folder into the container's /var/www/html directory
-COPY inance-html/ /var/www/html/
+# Copy extracted website files to Apache's root directory
+RUN cp -r /tmp/oxer-html/* /var/www/html/
 
-# Expose port 80 for HTTP
+# Set correct permissions
+RUN chmod -R 755 /var/www/html && chown -R apache:apache /var/www/html
+
+# Expose HTTP and HTTPS ports
 EXPOSE 80 443
 
-# Set the command to run Apache in the foreground when the container starts
+# Start Apache in the foreground
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
