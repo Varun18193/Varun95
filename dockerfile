@@ -1,8 +1,8 @@
-# Use CentOS 7 as the base image
-FROM centos:7
+# Use Ubuntu as the base image
+FROM ubuntu:latest
 
-# Install necessary packages: Apache, unzip, and wget
-RUN yum install -y httpd zip unzip wget
+# Update package list and install necessary packages
+RUN apt-get update && apt-get install -y apache2 zip unzip wget
 
 # Download website files
 RUN wget -O /tmp/oxer.zip https://www.free-css.com/assets/files/free-css-templates/download/page296/oxer.zip
@@ -14,10 +14,10 @@ RUN unzip /tmp/oxer.zip -d /tmp/
 RUN cp -r /tmp/oxer-html/* /var/www/html/
 
 # Set correct permissions
-RUN chmod -R 755 /var/www/html && chown -R apache:apache /var/www/html
+RUN chmod -R 755 /var/www/html && chown -R www-data:www-data /var/www/html
 
 # Expose HTTP and HTTPS ports
 EXPOSE 80 443
 
 # Start Apache in the foreground
-CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+CMD ["apache2ctl", "-D", "FOREGROUND"]
