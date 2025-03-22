@@ -1,12 +1,23 @@
 version: 0.0
 os: linux
 
+files:
+  - source: /
+    destination: /home/ubuntu/app
+
 hooks:
   ApplicationStop:
     - location: scripts/stop_container.sh
-      timeout: 1000
+      timeout: 300
       runas: root
-  AfterInstall:
+
+  BeforeInstall:
+    - location: scripts/cleanup.sh
+      timeout: 300
+      runas: root
+
+  ApplicationStart:
     - location: scripts/start_container.sh
-      timeout: 1000
+      timeout: 300
       runas: root
+
