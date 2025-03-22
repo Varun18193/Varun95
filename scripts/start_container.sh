@@ -2,7 +2,7 @@
 set -e
 
 # Pull the Docker image from Docker Hub
-echo
+docker pull varundocs/simple-python-app
 
 # Run the Docker image as a container
-echo
+docker run -t -p 5000:5000 varundocs/simple-python-app
