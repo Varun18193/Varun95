@@ -5,4 +5,4 @@ set -e
 docker pull varundocs/simple-python-app
 
 # Run the Docker image as a container
-docker run -t -p 5000:8000 varundocs/simple-python-app
+docker run -t -p 8000:8000 varundocs/simple-python-app
